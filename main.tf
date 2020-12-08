@@ -6,34 +6,34 @@ provider "aws" {
     profile="${var.profile}"
 }
 
-resource "aws_vpc" "default" {
-    cidr_block = "${var.vpc_cidr}"
-    enable_dns_hostnames = true
-    tags = {
-        Name = "${var.vpc_name}"
-	Owner = "Sreeharsha Veerapalli"
-	environment = "${var.environment}"
+#resource "aws_vpc" "default" {
+    #cidr_block = "${var.vpc_cidr}"
+    #enable_dns_hostnames = true
+    #tags = {
+     #   Name = "${var.vpc_name}"
+	#Owner = "Sreeharsha Veerapalli"
+	#environment = "${var.environment}"
     }
 }
 
-resource "aws_internet_gateway" "default" {
-    vpc_id = "${aws_vpc.default.id}"
-	tags = {
-        Name = "${var.IGW_name}"
+#resource "aws_internet_gateway" "default" {
+ #   vpc_id = "${aws_vpc.default.id}"
+#	tags = {
+ #       Name = "${var.IGW_name}"
     }
 }
 
-resource "aws_subnet" "subnet1-public" {
-    vpc_id = "${aws_vpc.default.id}"
-    cidr_block = "${var.public_subnet1_cidr}"
-    availability_zone = "us-east-1a"
+#resource "aws_subnet" "subnet1-public" {
+ #   vpc_id = "${aws_vpc.default.id}"
+  #  cidr_block = "${var.public_subnet1_cidr}"
+   # availability_zone = "us-east-1a"
 
-    tags = {
+    #tags = {
         Name = "${var.public_subnet1_name}"
     }
 }
 
-resource "aws_subnet" "subnet2-public" {
+#resource "aws_subnet" "subnet2-public" {
     vpc_id = "${aws_vpc.default.id}"
     cidr_block = "${var.public_subnet2_cidr}"
     availability_zone = "us-east-1b"
@@ -43,7 +43,7 @@ resource "aws_subnet" "subnet2-public" {
     }
 }
 
-resource "aws_subnet" "subnet3-public" {
+#resource "aws_subnet" "subnet3-public" {
     vpc_id = "${aws_vpc.default.id}"
     cidr_block = "${var.public_subnet3_cidr}"
     availability_zone = "us-east-1c"
@@ -55,7 +55,7 @@ resource "aws_subnet" "subnet3-public" {
 }
 
 
-resource "aws_route_table" "terraform-public" {
+#resource "aws_route_table" "terraform-public" {
     vpc_id = "${aws_vpc.default.id}"
 
     route {
@@ -68,12 +68,12 @@ resource "aws_route_table" "terraform-public" {
     }
 }
 
-resource "aws_route_table_association" "terraform-public" {
+#resource "aws_route_table_association" "terraform-public" {
     subnet_id = "${aws_subnet.subnet1-public.id}"
     route_table_id = "${aws_route_table.terraform-public.id}"
 }
 
-resource "aws_security_group" "allow_all" {
+#resource "aws_security_group" "allow_all" {
   name        = "allow_all"
   description = "Allow all inbound traffic"
   vpc_id      = "${aws_vpc.default.id}"
